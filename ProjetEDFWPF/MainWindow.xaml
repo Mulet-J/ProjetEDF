@@ -1,0 +1,31 @@
+﻿<Window x:Class="ProjetEDFWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetEDFWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Authentification" FontSize="30" VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
+        <TextBlock Text="Veuillez saisir votre login ainsi que votre mot de passe" FontSize="20" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <WrapPanel Grid.Row="2" VerticalAlignment="Center">
+            <TextBlock Text="Login" FontSize="20" Margin="30,0,30,0" Width="130"></TextBlock>
+            <TextBox Name="txtLogin" Width="500" FontSize="20"></TextBox>
+        </WrapPanel>
+        <WrapPanel Grid.Row="3" VerticalAlignment="Center">
+            <TextBlock Text="Mot de passe" FontSize="20" Margin="30,0,30,0" Width="130"></TextBlock>
+            <PasswordBox Name="txtMdp" Width="500" FontSize="20" PasswordChar="*"></PasswordBox>
+        </WrapPanel>
+        <Button Name="btnLogin" Click="btnLogin_Click" Grid.Row="4" Content="Login" Width="500" Height="60"></Button>
+        <TextBlock Name="txtError" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+    </Grid>
+</Window>

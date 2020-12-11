@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="edfModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="identifiant" />
+          </Key>
+          <Property Name="identifiant" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ancienReleve" Type="int" Nullable="false" />
+          <Property Name="dernierReleve" Type="int" Nullable="false" />
+          <Property Name="idcontroleur" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="controleur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mdp" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="statut" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="client_ibfk_1">
+          <End Role="controleur" Type="Self.controleur" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="controleur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="idcontroleur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="edfModelStoreContainer">
+          <EntitySet Name="client" EntityType="Self.client" Schema="edf" store:Type="Tables" />
+          <EntitySet Name="controleur" EntityType="Self.controleur" Schema="edf" store:Type="Tables" />
+          <AssociationSet Name="client_ibfk_1" Association="Self.client_ibfk_1">
+            <End Role="controleur" EntitySet="controleur" />
+            <End Role="client" EntitySet="client" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="edfModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="identifiant" />
+          </Key>
+          <Property Name="identifiant" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ancienReleve" Type="Int32" Nullable="false" />
+          <Property Name="dernierReleve" Type="Int32" Nullable="false" />
+          <Property Name="idcontroleur" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="controleur" Relationship="Self.client_ibfk_1" FromRole="client" ToRole="controleur" />
+        </EntityType>
+        <EntityType Name="controleur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="client" Relationship="Self.client_ibfk_1" FromRole="controleur" ToRole="client" />
+        </EntityType>
+        <Association Name="client_ibfk_1">
+          <End Role="controleur" Type="Self.controleur" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="controleur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="idcontroleur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="edfEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="controleur" EntityType="Self.controleur" />
+          <AssociationSet Name="client_ibfk_1" Association="Self.client_ibfk_1">
+            <End Role="controleur" EntitySet="controleur" />
+            <End Role="client" EntitySet="client" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="edfModelStoreContainer" CdmEntityContainer="edfEntities">
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="edfModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="identifiant" ColumnName="identifiant" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="ancienReleve" ColumnName="ancienReleve" />
+                <ScalarProperty Name="dernierReleve" ColumnName="dernierReleve" />
+                <ScalarProperty Name="idcontroleur" ColumnName="idcontroleur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="controleur">
+            <EntityTypeMapping TypeName="edfModel.controleur">
+              <MappingFragment StoreEntitySet="controleur">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="mdp" ColumnName="mdp" />
+                <ScalarProperty Name="statut" ColumnName="statut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
